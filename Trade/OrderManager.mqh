@@ -202,12 +202,21 @@ int OrderManager::deducePendType(int op,double price)
 //+------------------------------------------------------------------+
 int OrderManager::send(int cmd,double lots,double price,double stoploss,double takeprofit,string comment=NULL)
   {
-   int ticket=OrderSend(s,cmd,Math::roundUpToMultiple(lots,MINLOT),
-                        price,m_slippage,
-                        OrderBase::N(s,stoploss),
-                        OrderBase::N(s,takeprofit),
-                        comment,m_magic,0,m_color[cmd&1]);
-   if(ticket<0)
+     //Print("•>[OrderManager.mqh:206]: s: ", s);
+     //Print("•>[OrderManager.mqh:207]: cmd: ", cmd);
+     //Print("•>[OrderManager.mqh:208]: Math::roundUpToMultiple(lots,MINLOT): ", Math::roundUpToMultiple(lots, MINLOT));
+     //Print("•>[OrderManager.mqh:210]: price: ", price);
+     //Print("•>[OrderManager.mqh:211]: m_slippage: ", m_slippage);
+     //Print("•>[OrderManager.mqh:211]: stoploss: ", stoploss);
+     //Print("•>[OrderManager.mqh:213]: OrderBase::N(s,stoploss): ", OrderBase::N(s, stoploss));
+     //Print("•>[OrderManager.mqh:212]: takeprofit: ", takeprofit);
+     //Print("•>[OrderManager.mqh:215]: OrderBase::N(s,takeprofit): ", OrderBase::N(s, takeprofit));
+     int ticket = OrderSend(s, cmd, Math::roundUpToMultiple(lots, MINLOT),
+                            price, m_slippage,
+                            OrderBase::N(s, stoploss),
+                            OrderBase::N(s, takeprofit),
+                            comment, m_magic, 0, m_color[cmd & 1]);
+     if (ticket < 0)
      {
       int err=Mql::getLastError();
       m_lastError=err;
